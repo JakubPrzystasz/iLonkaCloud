@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qv(u+sk#40o#apkp7+h3gdmhoc@85m9%)jf0ktfn1ta1(jy9cw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -59,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Trybus.urls'
+ROOT_URLCONF = 'iCloud.urls'
 
 TEMPLATES = [
     {
@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Trybus.wsgi.application'
+WSGI_APPLICATION = 'iCloud.wsgi.application'
 
 
 # Database

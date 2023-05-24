@@ -1,33 +1,10 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 interface UploadedFileProps {
   file: File;
-  onClick: () => void;
 }
 
-const UploadedFile: React.FC<UploadedFileProps> = ({ file, onClick }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    const handleMouseEnter = () => {
-      setIsHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-      setIsHovered(false);
-    };
-
-    const fileElement = document.getElementById(`file-${file.name}`);
-    fileElement?.addEventListener('mouseenter', handleMouseEnter);
-    fileElement?.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      fileElement?.removeEventListener('mouseenter', handleMouseEnter);
-      fileElement?.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [file.name]);
-
+const UploadedFile: React.FC<UploadedFileProps> = ({ file }) => {
   const formattedSize = (size: number) => {
     const kb = 1024;
     const mb = kb * 1024;
@@ -49,11 +26,7 @@ const UploadedFile: React.FC<UploadedFileProps> = ({ file, onClick }) => {
   };
 
   return (
-    <div
-      id={`file-${file.name}`}
-      className={`flex items-center py-2 ${isHovered ? 'bg-gray-200' : ''}`}
-      onClick={onClick}
-    >
+    <div className="flex items-center py-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 mr-2"
