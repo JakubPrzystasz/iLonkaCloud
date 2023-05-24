@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [repassword, setRePassword] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -16,6 +17,9 @@ const LoginPage: React.FC = () => {
     }
     if (!password) {
       validationErrors.password = 'Password is required';
+    }
+    if (!repassword) {
+      validationErrors.repassword = 'RePassword is required';
     }
     setErrors(validationErrors);
 
@@ -46,7 +50,7 @@ const LoginPage: React.FC = () => {
     <div className="flex justify-center items-center h-screen">
       <div className="w-80vw">
         <div className="container mx-auto py-10">
-          <h1 className="text-2xl font-bold mb-4">Login Page</h1>
+          <h1 className="text-2xl font-bold mb-4">Register Page</h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="username" className="block font-semibold mb-1">Username:</label>
@@ -70,8 +74,19 @@ const LoginPage: React.FC = () => {
               />
               {errors.password && <span className="text-red-500">{errors.password}</span>}
             </div>
+            <div className="mb-4">
+              <label htmlFor="repassword" className="block font-semibold mb-1">Retype password:</label>
+              <input
+                type="password"
+                id="repassword"
+                value={repassword}
+                onChange={(e) => setRePassword(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded"
+              />
+              {errors.repassword && <span className="text-red-500">{errors.repassword}</span>}
+            </div>
             <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-              Login
+              Register
             </button>
           </form>
         </div>
