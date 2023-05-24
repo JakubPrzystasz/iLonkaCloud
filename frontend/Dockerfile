@@ -1,36 +1,32 @@
-FROM node:18-alpine AS deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
+# Dockerfile
+# Use node alpine as it's a small node image
+FROM node:alpine
 
-COPY package.json package-lock.json ./
-RUN  npm install --production
+# Create the directory on the node image 
+# where our Next.js app will live
+RUN mkdir -p /front
 
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+# Set /app as the working directory
+WORKDIR /front/ilonkacloud
 
-ENV NEXT_TELEMETRY_DISABLED 1
+COPY ./src/package*.json ./
 
-RUN npm run build
+RUN npm install
 
-FROM node:18-alpine AS runner
-WORKDIR /app
+CMD ["npm", "run", "dev"]
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+# # Copy package.json and package-lock.json
+# # to the /app working directory
+# COPY package*.json /app
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# # Install dependencies in /app
+# RUN npm install
 
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+# # Copy the rest of our Next.js folder into /app
+# COPY . /app
 
-USER nextjs
+# # Ensure port 3000 is accessible to our system
+# EXPOSE 3000
 
-EXPOSE 3000
-
-ENV PORT 3000
-
-CMD ["npm", "start"]
+# # Run yarn dev, as we would via the command line 
+# CMD ["npm", "run", "dev"]

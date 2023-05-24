@@ -1,8 +1,22 @@
-version: '3'
+version: "3"
+
 services:
-  frontend:
+  front:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    container_name: web
+    # restart: always
     ports:
-      - '3000:3000'
+      - 3000:3000
+    volumes:
+      - ./frontend/src/:/front/ilonkacloud
+  back:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: back
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend/:/app
