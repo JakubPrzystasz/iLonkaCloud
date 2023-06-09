@@ -25,5 +25,6 @@ urlpatterns = [
     path('auth/register/', include("dj_rest_auth.registration.urls")),
     path('login/', LoginView.as_view()),
     path('files/upload/', UploadView.as_view()),
-    path('files/', FileListView.as_view())
+    path('files/', FileListView.as_view()),
+    path('files/delete/<int:pk>/', FileDeleteView.as_view())
 ]

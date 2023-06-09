@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import permissions
+from rest_framework import permissions, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -34,12 +34,14 @@ class FileListView(APIView):
 
 class IsUserOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj == request.user
+        return obj.user == request.user
 
 
-class FileDeleteView(APIView):
+class FileDeleteView(generics.DestroyAPIView):
     permission_classes = [IsUserOwner]
+    queryset = UploadedFile.objects.all()
 
-    def delete(self, request):
-        pass
-
+    # def delete(self, request, pk):
+    #     file = UploadedFile.objects.filter(pk=pk)
+    #     # file.delete()
+    #     return Response(status=204)
