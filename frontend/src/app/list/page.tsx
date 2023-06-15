@@ -1,6 +1,8 @@
 "use client"
 import React from 'react';
 import FileList from '../../components/FileList'
+import UploadFile from '../../components/UploadFile'
+
 
 const App = () => {
 
@@ -10,9 +12,9 @@ const App = () => {
     };
 
     const uploadedFiles: File[] = [
-        new File(['dupaudpusdaupasddhashj'], 'file1.jpg'),
-        new File(['file2 content'], 'file2.pdf'),
-        new File(['asdfsadfasdfsdfdfs content'], 'file3.txt'),
+        new File(['file1'], 'file1.jpg'),
+        new File(['file2'], 'file2.pdf'),
+        new File(['file3'], 'file3.txt'),
     ];
 
     return (
@@ -28,6 +30,14 @@ const App = () => {
                         onClick={handleLogout}>
                         <a href="/">
                             Logout
+                        </a>
+                    </button>
+                    <input type="file" />
+                    <button
+                        className="bg-green-500 text-white px-4 py-2 rounded"
+                        onClick={handleLogout}>
+                        <a href="/">
+                            Upload
                         </a>
                     </button>
                 </div>

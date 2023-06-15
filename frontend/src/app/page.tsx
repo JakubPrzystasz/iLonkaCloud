@@ -34,7 +34,7 @@ const LoginPage: React.FC = () => {
         if (response.ok) {
           window.location.href = '/list'
         } else {
-          // Login failed, handle the error
+          alert('Login failed');
         }
       } catch (error) {
         console.log(error)
@@ -54,8 +54,12 @@ const LoginPage: React.FC = () => {
                 type="text"
                 id="username"
                 value={username}
+                minLength={2}
+                maxLength={16}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded"
+                pattern="[a-z0-9]{2,16}"
+                title="Login should be digits (0 to 9) or alphabets (a to z) length: 2-16 ."
               />
               {errors.username && <span className="text-red-500">{errors.username}</span>}
             </div>
@@ -65,8 +69,12 @@ const LoginPage: React.FC = () => {
                 type="password"
                 id="password"
                 value={password}
+                minLength={4}
+                maxLength={64}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded"
+                pattern="^[\x20-\x7E]*$"
+                title="Password should contain only printable characters."
               />
               {errors.password && <span className="text-red-500">{errors.password}</span>}
             </div>

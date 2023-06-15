@@ -10,23 +10,18 @@ RUN mkdir -p /front/ilonkacloud
 WORKDIR /front/ilonkacloud
 
 COPY ./src/package*.json ./
-#
-#RUN npm install
-#
-#CMD ["npm", "run", "dev"]
 
-# # Copy package.json and package-lock.json
-# # to the /app working directory
+RUN npm install
+
+CMD ["npm", "run", "dev"]
+
+# Copy package.json and package-lock.json
+# to the /app working directory
 # COPY package*.json /app
 
-# # Install dependencies in /app
+# Install dependencies in /app
 # RUN npm install
 
-# # Copy the rest of our Next.js folder into /app
-# COPY . /app
-
-# # Ensure port 3000 is accessible to our system
 # EXPOSE 3000
 
-# # Run yarn dev, as we would via the command line 
 # CMD ["npm", "run", "dev"]

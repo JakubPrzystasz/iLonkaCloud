@@ -19,14 +19,14 @@ const LoginPage: React.FC = () => {
       validationErrors.password = 'Password is required';
     }
     if (!repassword) {
-      validationErrors.repassword = 'RePassword is required';
+      validationErrors.repassword = 'Retype Password is required';
     }
     setErrors(validationErrors);
 
     // If there are no validation errors, proceed with login logic
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await fetch('http://localhost:8000/login/', {
+        const response = await fetch('http://localhost:8000/register/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -36,9 +36,9 @@ const LoginPage: React.FC = () => {
         });
 
         if (response.ok) {
-          window.location.href = '/list'
+          window.location.href = '/'
         } else {
-          // Login failed, handle the error
+          alert('register failed');
         }
       } catch (error) {
         console.log(error)
@@ -60,6 +60,8 @@ const LoginPage: React.FC = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded"
+                pattern="[a-z0-9]{2,6}"
+                title="Login should be digits (0 to 9) or alphabets (a to z) length: 2-16 ."
               />
               {errors.username && <span className="text-red-500">{errors.username}</span>}
             </div>
@@ -69,8 +71,12 @@ const LoginPage: React.FC = () => {
                 type="password"
                 id="password"
                 value={password}
+                minLength={4}
+                maxLength={64}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded"
+                pattern="^[\x20-\x7E]*$"
+                title="Password should contain only printable characters."
               />
               {errors.password && <span className="text-red-500">{errors.password}</span>}
             </div>
@@ -80,8 +86,12 @@ const LoginPage: React.FC = () => {
                 type="password"
                 id="repassword"
                 value={repassword}
+                minLength={4}
+                maxLength={64}
                 onChange={(e) => setRePassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded"
+                pattern="^[\x20-\x7E]*$"
+                title="Password should contain only printable characters."
               />
               {errors.repassword && <span className="text-red-500">{errors.repassword}</span>}
             </div>
